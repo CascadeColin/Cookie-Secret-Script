@@ -3,8 +3,8 @@ module.exports = {
     {
       type: "list",
       name: "filetype",
-      message: "What type of file are you making?",
-      choices: [".env", ".md"],
+      message: "Where would you like to begin?",
+      choices: ["create a .env file", "create a .md file (in development)", "create a MVC directory (in development)"],
     },
   ],
   md: [

@@ -2,10 +2,11 @@ require("dotenv").config();
 const inquirer = require("inquirer");
 const questions = require("./utils/questions");
 const prompts = require("./utils/prompts");
+//FIXME: convert the ASCII to JS format
+const art = require('./utils/title');
 const fn = require("./utils/functions");
 
 const mainMenu = async () => {
-  //   const answers = await inquirer.prompt(questions.mainMenu);
   const answers = await fn.menu();
   if (answers.filetype === ".md") {
     console.log("");
@@ -65,7 +66,7 @@ const envMenu = async () => {
   envData();
 };
 
-//TODO:
+//TODO: implement markdown functionality (merge readme generator!)
 const mdMenu = () => {};
 
 mainMenu();
