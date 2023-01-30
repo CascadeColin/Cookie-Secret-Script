@@ -5,47 +5,64 @@ const prompts = require("./utils/prompts");
 const fn = require("./utils/functions");
 
 const mainMenu = async () => {
-  const answers = await inquirer.prompt(questions.mainMenu);
+  //   const answers = await inquirer.prompt(questions.mainMenu);
+  const answers = await fn.menu();
   if (answers.filetype === ".md") {
+    console.log("");
     // TODO: open markdown menu
   } else if (answers.filetype === ".env") {
+    console.log("");
     envMenu();
     return;
   }
 };
 
+//TODO: works well, but needs a refactor
 const envMenu = async () => {
   const envVars = [];
-  const answers = await inquirer.prompt(questions.envType);
-  switch (answers.envtype) {
-    case "session secret":
-      const answers = await inquirer.prompt(questions.sessionSecret);
-      let key;
-      if (answers.useKeyGen) {
-        key = await fn.keyGenerator();
-      } else {
-        key = answers.secretStr;
-      }
-      const sessionSecret = `${answers.secretName}:${key}`;
-      const addMore = await inquirer.prompt(questions.addAnotherEnv);
-      if (!addMore.addEnvVars) {
-        fn.writeEnvFile(sessionSecret);
-        console.log("\x1b[1m%s\x1b[0m", "\n     .env file created!\n")
-      } else {
-        envVars.push(sessionSecret);
-        fn.writeEnvFile(envVars)
-      }
-      break;
-    case "database info":
-        //TODO:
-      
-      break;
-    case "API key":
-        //TODO:
-
-      break;
-  }
-  return;
+  const envData = async () => {
+    const answers = await fn.envType();
+    switch (answers.envtype) {
+      case "session secret":
+        const answers = await fn.sessionSecret();
+        let key;
+        if (answers.useKeyGen) {
+          key = await fn.keyGenerator();
+        } else {
+          key = await answers.secretStr;
+        }
+        const sessionSecret = await `${answers.secretName}: '${key}'`;
+        await envVars.push(sessionSecret);
+        if (answers.addEnvVars) {
+          console.log("");
+          await envData();
+        }
+        break;
+      case "database info":
+        const dbArr = ["", "", ""];
+        const dbInfo = await fn.dbInfo();
+        dbArr[0] = `DB_NAME: '${dbInfo.dbName}'`;
+        dbArr[1] = `DB_USERNAME: '${dbInfo.dbUsername}'`;
+        dbArr[2] = `DB_PASSWORD: '${dbInfo.dbPassword}'`;
+        dbArr.forEach((index) => envVars.push(index));
+        if (dbInfo.addEnvVars) {
+          console.log("");
+          await envData();
+        }
+        break;
+      case "API key":
+        const apikey = await fn.apiKey();
+        const apikeyEnvVar = `API_KEY: '${apikey.apiKey}'`;
+        envVars.push(apikeyEnvVar);
+        if (apikey.addEnvVars) {
+          console.log("");
+          await envData();
+        }
+        break;
+    }
+    fn.fileWriter(".env", envVars);
+  };
+  envData();
 };
 
 //TODO:

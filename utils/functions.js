@@ -1,24 +1,21 @@
 const { writeFile, write, createWriteStream, end } = require("fs");
 const { webcrypto } = require("node:crypto");
 const { subtle } = webcrypto;
+const inquirer = require("inquirer");
+const questions = require("../utils/questions");
 
 module.exports = {
   fileWriter: function (file, data) {
-    // const writer = createWriteStream('');
-    if (typeof data === 'string') {
-      writeFile(file, data, { flag: "wx" }, (err) => {
-        if (err) {
-          if (err.code === "EEXIST") {
-            console.log("\nERROR: file already exists\n");
-            return;
-          }
-        }
-        return;
+    if (Array.isArray(data)) {
+      const writer = createWriteStream(file);
+      writer.once("open", (fd) => {
+        data.forEach((variable) => {
+          writer.write(`${variable}\n`);
+        });
+        writer.end();
       });
-    } else if (Array.isArray(data)) {
-      console.log(`fileWriter: ${data} is an array`)
     } else {
-      throw new Error("Must be a string or array.")
+      throw new Error("Invalid data type");
     }
   },
   keyGenerator: async function () {
@@ -32,39 +29,29 @@ module.exports = {
       ["sign", "verify"]
     );
     const keygen = await subtle.exportKey("jwk", hash);
+    if (!keygen.k) {
+      throw new Error("Hash generation failed.")
+    }
     return keygen.k;
   },
-  // TODO: make compatible with arrays
-  writeEnvFile: function (data) {
-    const formattedData = this.formatEnvVars(data);
-    if (typeof formattedData === "string") {
-      this.fileWriter(".env", formattedData);
-    } else if (Array.isArray(formattedData)) {
-      // array handling
-      this.fileWriter(".env", formattedData);
-    }
+  envType: async function () {
+    const a = await inquirer.prompt(questions.envType);
+    return a;
   },
-  // accepts a string or array
-  formatEnvVars: function (data) {
-    if (typeof data === "string") {
-      data = this.formatEnvStr(data);
-      return data;
-    } else if (Array.isArray(data)) {
-      if (typeof data[0] !== "string") {
-        throw new Error("Arrays may only contain strings");
-      }
-      const arr = data.map((str) => this.formatEnvStr(str));
-      return arr;
-    } else {
-      throw new Error("Data must be a string or array.");
-    }
+  menu: async function () {
+    const a = await inquirer.prompt(questions.mainMenu);
+    return a;
   },
-  formatEnvStr: function (str) {
-    const arr = str.split(":");
-    const varName = arr.shift();
-    arr.unshift("'");
-    arr.push("'");
-    str = arr.join("");
-    return `${varName}: ${str}`;
+  apiKey: async function () {
+    const a = await inquirer.prompt(questions.apiKey);
+    return a;
+  },
+  sessionSecret: async function () {
+    const a = await inquirer.prompt(questions.sessionSecret);
+    return a;
+  },
+  dbInfo: async function () {
+    const a = await inquirer.prompt(questions.dbInfo);
+    return a;
   }
 };
