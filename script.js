@@ -7,7 +7,7 @@ const fn = require("./utils/functions");
 const mainMenu = async () => {
   const answers = await inquirer.prompt(questions.mainMenu);
   if (answers.filetype === ".md") {
-    console.log("opening markdown menu");
+    // TODO: open markdown menu
   } else if (answers.filetype === ".env") {
     envMenu();
     return;
@@ -33,20 +33,22 @@ const envMenu = async () => {
         console.log("\x1b[1m%s\x1b[0m", "\n     .env file created!\n")
       } else {
         envVars.push(sessionSecret);
-        const formattedVars = await fn.formatEnvVars(envVars);
-        console.log(formattedVars)
+        fn.writeEnvFile(envVars)
       }
       break;
     case "database info":
-      console.log("open db menu");
+        //TODO:
+      
       break;
     case "API key":
-      console.log("opening api menu");
+        //TODO:
+
       break;
   }
   return;
 };
 
+//TODO:
 const mdMenu = () => {};
 
 mainMenu();

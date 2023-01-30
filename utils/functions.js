@@ -1,18 +1,25 @@
-const { writeFile } = require("fs");
+const { writeFile, write, createWriteStream, end } = require("fs");
 const { webcrypto } = require("node:crypto");
 const { subtle } = webcrypto;
 
 module.exports = {
   fileWriter: function (file, data) {
-    writeFile(file, data, { flag: "wx" }, (err) => {
-      if (err) {
-        if (err.code === "EEXIST") {
-          console.log("\nERROR: file already exists\n");
-          return;
+    // const writer = createWriteStream('');
+    if (typeof data === 'string') {
+      writeFile(file, data, { flag: "wx" }, (err) => {
+        if (err) {
+          if (err.code === "EEXIST") {
+            console.log("\nERROR: file already exists\n");
+            return;
+          }
         }
-      }
-      return;
-    });
+        return;
+      });
+    } else if (Array.isArray(data)) {
+      console.log(`fileWriter: ${data} is an array`)
+    } else {
+      throw new Error("Must be a string or array.")
+    }
   },
   keyGenerator: async function () {
     const hash = await subtle.generateKey(
@@ -28,9 +35,14 @@ module.exports = {
     return keygen.k;
   },
   // TODO: make compatible with arrays
-  writeEnvFile: function (str) {
-    const data = this.formatEnvVars(str);
-    this.fileWriter(".env", data);
+  writeEnvFile: function (data) {
+    const formattedData = this.formatEnvVars(data);
+    if (typeof formattedData === "string") {
+      this.fileWriter(".env", formattedData);
+    } else if (Array.isArray(formattedData)) {
+      // array handling
+      this.fileWriter(".env", formattedData);
+    }
   },
   // accepts a string or array
   formatEnvVars: function (data) {
