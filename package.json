@@ -1,0 +1,24 @@
+{
+  "name": "cookie-secret-script",
+  "version": "1.0.0",
+  "description": "A script that creates session secrets and writes them to .env",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CascadeColin/Cookie-Secret-Script.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CascadeColin/Cookie-Secret-Script/issues"
+  },
+  "homepage": "https://github.com/CascadeColin/Cookie-Secret-Script#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "inquirer": "^8.2.4"
+  }
+}
