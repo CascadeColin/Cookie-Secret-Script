@@ -1,23 +1,5 @@
 module.exports = {
-  mainMenu: [
-    {
-      type: "list",
-      name: "filetype",
-      message: "Where would you like to begin?",
-      choices: ["create a .env file", "create a .md file (in development)", "create a MVC directory (in development)"],
-    },
-  ],
-  md: [
-    // TODO: inquirer questions
-  ],
-  envType: [
-    {
-      type: "list",
-      name: "envtype",
-      message: "What type of environmental variable?",
-      choices: ["session secret", "database info", "API key"],
-    },
-  ],
+/* SECTION 1: .env variables  */
   sessionSecret: [
     {
       type: "input",
@@ -57,6 +39,8 @@ module.exports = {
       type: "password",
       name: "dbPassword",
       message: "What is the database password?",
+      // must be true in order to show user # of chars they've inputted
+      mask: true
     },
     {
       type: "confirm",
@@ -83,4 +67,19 @@ module.exports = {
       message: "What is the name of your environmental variable?",
     },
   ],
+/* SECTION 2: choosing a filepath  */
+  filePath: [
+    {
+      type: "list",
+      name: "specifyPath",
+      message: "Save to current directory or a different one?",
+      choices: ["Choose a filepath", "Use current directory"],
+    },
+    {
+      type: "input",
+      name: "newPath",
+      message: "Specify the desired path:",
+      when: answer => !answer.specifyPath 
+    }
+  ]
 };
