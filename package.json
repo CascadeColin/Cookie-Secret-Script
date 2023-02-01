@@ -19,6 +19,8 @@
   "homepage": "https://github.com/CascadeColin/Cookie-Secret-Script#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "inquirer": "^8.2.4"
+    "fuzzy": "^0.1.3",
+    "inquirer": "^8.2.4",
+    "inquirer-autocomplete-prompt": "^2.0.0"
   }
 }
