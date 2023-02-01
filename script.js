@@ -15,16 +15,16 @@ const mainMenu = async () => {
   const answers = await fn.menu();
   switch (answers.filetype) {
     case "Create .md file (in development)":
-      console.log("test");
+      console.log("");
       inDevelopment();
       break;
     case "Create .env file":
-      console.log("test");
+      console.log("");
       envMenu();
       break;
     case "Create MVC directory (in development)":
       // TODO: open MVC dir creation menu
-      console.log("test");
+      console.log("");
       inDevelopment();
       break;
     case "Quit":
