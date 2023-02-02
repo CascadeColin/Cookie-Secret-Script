@@ -3,26 +3,13 @@ const fuzzy = require("fuzzy");
 const inquirerPrompt = require("inquirer-autocomplete-prompt");
 const path = require("path");
 const { readdir } = require("fs/promises");
-const util = require("util");
 const fs = require("fs");
+
+//TODO: filter out specific folders (ie 'node_modules', '.git')
 
 // creates the 'autocomplete' prompt
 inquirer.registerPrompt("autocomplete", inquirerPrompt);
 
-// FIXME: children are being cut out, but the filtered names are still getting saved
-const dirnameFilter = (dirname) => {
-  let filterArr = dirname.split("\\");
-  for (const dir of filterArr) {
-    if (dir.match(/^(node_modules|\.git)$/)) {
-      // console.log(filterArr.indexOf(dir), dir)
-      filterArr.splice(0);
-    }
-  }
-  dirname = filterArr.join("\\");
-  if (dirname) {
-    return dirname;
-  }
-};
 
 /******************
 dirObj needs to be formatted as below:
@@ -57,16 +44,12 @@ const dirObjSetup = async (dir) => {
 // accepts a string.  runs the string through a filter (see dirnameFilter()).  if returned string is truthy, pass it through dirObjSetup().
 const getChildDirs = async (dir) => {
   // currently filtering out ".git" and "node_modules".  to filter more, add them to the regex in dirnameFilter()
-  const filteredDirStr = await dirnameFilter(dir);
-  if (filteredDirStr) {
-    //FIXME: I think the duplication is here
+  // const filteredDirStr = await dirnameFilter(dir);
+  if (dir) {
     const dirObj = await dirObjSetup(dir);
     for (const obj of dirObj) {
       if (obj.dirname) {
-        const filter = dirnameFilter(obj.dirname)
-        if (filter) {
-          obj.children = await getChildDirs(obj.dirname)
-        }
+        obj.children = await getChildDirs(obj.dirname)
       }
     }
     return dirObj;
