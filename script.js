@@ -2,14 +2,14 @@ require("dotenv").config();
 const inquirer = require("inquirer");
 const questions = require("./utils/questions")
 const prompts = require("./utils/prompts")
+const { ASCII } = require("./utils/title");
+const fn = require("./utils/functions");
 
 /* Development Priorities:
 * develop dynamic directory creation and selection
 * develop automated path structure using MVC paradigm at specified directory, creating it if it does not exist
 */
 
-const { ASCII } = require("./utils/title");
-const fn = require("./utils/functions");
 
 const mainMenu = async () => {
   const answers = await fn.menu();

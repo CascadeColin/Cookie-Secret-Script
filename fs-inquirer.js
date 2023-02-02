@@ -10,7 +10,6 @@ const fs = require("fs");
 // creates the 'autocomplete' prompt
 inquirer.registerPrompt("autocomplete", inquirerPrompt);
 
-
 /******************
 dirObj needs to be formatted as below:
 {
@@ -32,6 +31,9 @@ const createParentObj = async (dir) => {
   };
 };
 
+// accepts parameters: STRING.
+// I don't actually know why this works yet
+// RETURNS an array
 const dirObjSetup = async (dir) => {
   const subDirs = (await readdir(dir, { withFileTypes: true }))
     .filter((dirent) => dirent.isDirectory())
@@ -41,10 +43,11 @@ const dirObjSetup = async (dir) => {
   return subDirs;
 };
 
-// accepts a string.  runs the string through a filter (see dirnameFilter()).  if returned string is truthy, pass it through dirObjSetup().
+// accepts parameters: STRING.
+// passes paramater through dirObjSetup() to convert the stringified PATH into a dirObj object
+// for each object in dirObj.children array, recursively create more children until there are no remaining dirname strings
+// RETURNS an object
 const getChildDirs = async (dir) => {
-  // currently filtering out ".git" and "node_modules".  to filter more, add them to the regex in dirnameFilter()
-  // const filteredDirStr = await dirnameFilter(dir);
   if (dir) {
     const dirObj = await dirObjSetup(dir);
     for (const obj of dirObj) {
@@ -62,7 +65,7 @@ const init = async () => {
   for (const childObj of parent.children) {
     childObj.children = await getChildDirs(childObj.dirname)
   }
-  await fs.writeFile("data.json", JSON.stringify(parent), (err) => {
+  await fs.writeFile("userfs.json", JSON.stringify(parent), (err) => {
     if (err) throw err;
   });
 };
