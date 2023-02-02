@@ -11,23 +11,27 @@ inquirer.registerPrompt("autocomplete", inquirerPrompt);
 
 // FIXME: children are being cut out, but the filtered names are still getting saved
 const dirnameFilter = (dirname) => {
-  // console.log(typeof dirname)
-  const filterArr = dirname.split("\\");
+  let filterArr = dirname.split("\\");
   for (const dir of filterArr) {
     if (dir.match(/^(node_modules|\.git)$/)) {
-      // console.log(`to be removed: ${dir} at index ${filterArr.indexOf(dir)}`)
+      // console.log(filterArr.indexOf(dir), dir)
       filterArr.splice(0);
     }
   }
   dirname = filterArr.join("\\");
   if (dirname) {
-    // console.log(typeof dirname);
     return dirname;
   }
 };
 
-//FIXME: each directory is being duplicated as a child, with the subchild being an object instead of an array
-const dirObjSetup = async (dir) => {
+/******************
+dirObj needs to be formatted as below:
+{
+  dirname: STRING representing filepath (PATH),
+  children: ARRAY representing dirname's child dirnames
+} 
+******************/
+const createParentObj = async (dir) => {
   return {
     dirname: dir,
     // gets raw Dirent objects, filters out Dirent objects that are not a directory ([Symbol(type)]: 2), maps the Dirent objects and sets up the child object in the same format
@@ -35,64 +39,56 @@ const dirObjSetup = async (dir) => {
       .filter((dirent) => dirent.isDirectory())
       .map(
         (dirent) =>
+          //example: { dirname: `C:\users\bootcamp`, chilren: [] }
           (dirent = { dirname: `${dir}\\${dirent.name}`, children: [] })
       ),
   };
 };
 
+const dirObjSetup = async (dir) => {
+  const subDirs = (await readdir(dir, { withFileTypes: true }))
+    .filter((dirent) => dirent.isDirectory())
+    .map(
+      (dirent) => (dirent = { dirname: `${dir}\\${dirent.name}`, children: [] })
+    );
+  return subDirs;
+};
+
+// accepts a string.  runs the string through a filter (see dirnameFilter()).  if returned string is truthy, pass it through dirObjSetup().
 const getChildDirs = async (dir) => {
-  // console.log('raw: '+typeof dir)
   // currently filtering out ".git" and "node_modules".  to filter more, add them to the regex in dirnameFilter()
-  const filteredDir = await dirnameFilter(dir);
-  // console.log('filtered: '+typeof filteredDir)
-  if (filteredDir) {
+  const filteredDirStr = await dirnameFilter(dir);
+  if (filteredDirStr) {
     //FIXME: I think the duplication is here
-    const parentDir = await dirObjSetup(dir);
-    if (parentDir.children.length) {
-      for (const child of parentDir.children) {
-        child.children = await getChildDirs(child.dirname);
+    const dirObj = await dirObjSetup(dir);
+    for (const obj of dirObj) {
+      if (obj.dirname) {
+        const filter = dirnameFilter(obj.dirname)
+        if (filter) {
+          obj.children = await getChildDirs(obj.dirname)
+        }
       }
-      return parentDir;
-    } else {
-      return parentDir;
     }
+    return dirObj;
   }
 };
 
-// temporary function before running recursion
-const executeInOrder = async () => {
-  const data = await getChildDirs(`C:\\Users\\colin\\bootcamp`);
-  // const data = await getChildDirs(`C:\\Users\\colin\\bootcamp\\Work-Day-Scheduler`);
-  // await getChildDirs("C:\\Users\\colin\\bootcamp\\Work-Day-Scheduler\\assets");
-  // await getChildDirs(
-  //   "C:\\Users\\colin\\bootcamp\\Work-Day-Scheduler\\assets\\js"
-  // );
-  // console.dir(util.inspect(data, true, null, true))
-  await fs.writeFile("data.json", JSON.stringify(data), (err) => {
+const init = async () => {
+  const parent = await createParentObj(`C:\\Users\\colin\\bootcamp`);
+  // with created parent, recursively create all children
+  for (const childObj of parent.children) {
+    childObj.children = await getChildDirs(childObj.dirname)
+  }
+  await fs.writeFile("data.json", JSON.stringify(parent), (err) => {
     if (err) throw err;
-    console.log("file created")
   });
 };
-executeInOrder();
+init();
 
-// const init = async () => {
-//     const dir = await getChildDirs(`C:\\Users\\colin\\bootcamp`);
-//     return dir;
-// }
-// init();
+/**** STEP 2: incorporate arrays into inquirer-autocomplete with fuzzy ****/
 
-// // getChildDirs('c:\\users\\colin');
-
-// // const users = [ 'colin', 'Default', 'Public' ]
-
-// const searchDirs = async (answers, input = "") => {
-//   const dir = await getChildDirs(`C:\\Users\\colin\\bootcamp`);
-//   const result = await fuzzy.filter(input, dir).map(e => e.original)
-//   return result;
-// };
-
-// searchDirs({}, "")
-
+// const users = [ 'colin', 'Default', 'Public' ]
+//
 // inquirer
 //   .prompt([
 //     {
