@@ -5,10 +5,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\.readmeMaker",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\.readmeMaker\\node_modules",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\.readmeMaker\\utils",
           "children": []
         }
@@ -18,10 +14,6 @@
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\Code-Quiz",
       "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Code-Quiz\\.git",
-          "children": []
-        },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Code-Quiz\\assets",
           "children": [
@@ -45,10 +37,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\E-Commerce-Back-End",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\E-Commerce-Back-End\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\E-Commerce-Back-End\\Assets",
           "children": []
         },
@@ -65,10 +53,6 @@
             },
             {
               "dirname": "C:\\Users\\colin\\bootcamp\\E-Commerce-Back-End\\Develop\\models",
-              "children": []
-            },
-            {
-              "dirname": "C:\\Users\\colin\\bootcamp\\E-Commerce-Back-End\\Develop\\node_modules",
               "children": []
             },
             {
@@ -92,10 +76,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Employee-Tracker",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Employee-Tracker\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Employee-Tracker\\.instructions",
           "children": []
         },
@@ -106,10 +86,6 @@
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Employee-Tracker\\db",
           "children": []
-        },
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Employee-Tracker\\node_modules",
-          "children": []
         }
       ]
     },
@@ -117,28 +93,11 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Font-Color-Picker",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Font-Color-Picker\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Font-Color-Picker\\db",
           "children": []
         },
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Font-Color-Picker\\node_modules",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Font-Color-Picker\\public",
-          "children": []
-        }
-      ]
-    },
-    {
-      "dirname": "C:\\Users\\colin\\bootcamp\\gitlab",
-      "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\gitlab\\UW-VIRT-FSF-PT-09-2022-U-LOLC",
           "children": []
         }
       ]
@@ -165,10 +124,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Minesweeper",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Minesweeper\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Minesweeper\\assets",
           "children": [
             {
@@ -191,10 +146,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\My-Portfolio",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\My-Portfolio\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\My-Portfolio\\assets",
           "children": [
             {
@@ -213,19 +164,11 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Note-Taker",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Note-Taker\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Note-Taker\\.notes",
           "children": []
         },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Note-Taker\\db",
-          "children": []
-        },
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Note-Taker\\node_modules",
           "children": []
         },
         {
@@ -257,10 +200,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Password-Generator",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Password-Generator\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Password-Generator\\Assets",
           "children": [
             {
@@ -285,12 +224,7 @@
     },
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\Pokemon-ID-Finder",
-      "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Pokemon-ID-Finder\\.git",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\Pre-work",
@@ -326,10 +260,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\prework-study-guide",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\prework-study-guide\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\prework-study-guide\\assets",
           "children": []
         }
@@ -339,15 +269,7 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Project-Setup-Script",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Project-Setup-Script\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Project-Setup-Script\\fs_test",
-          "children": []
-        },
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Project-Setup-Script\\node_modules",
           "children": []
         },
         {
@@ -362,10 +284,6 @@
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\projects\\github-exercises",
           "children": [
-            {
-              "dirname": "C:\\Users\\colin\\bootcamp\\projects\\github-exercises\\.git",
-              "children": []
-            },
             {
               "dirname": "C:\\Users\\colin\\bootcamp\\projects\\github-exercises\\assets",
               "children": [
@@ -404,14 +322,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\README-Generator",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\README-Generator\\.git",
-          "children": []
-        },
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\README-Generator\\node_modules",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\README-Generator\\utils",
           "children": []
         }
@@ -420,10 +330,6 @@
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\Social-Network-API",
       "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Social-Network-API\\.git",
-          "children": []
-        },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Social-Network-API\\config",
           "children": []
@@ -434,10 +340,6 @@
         },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Social-Network-API\\models",
-          "children": []
-        },
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Social-Network-API\\node_modules",
           "children": []
         },
         {
@@ -459,10 +361,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Steam-Achievement-Picker",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Steam-Achievement-Picker\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Steam-Achievement-Picker\\config",
           "children": []
         },
@@ -481,10 +379,6 @@
         },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Steam-Achievement-Picker\\models",
-          "children": []
-        },
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Steam-Achievement-Picker\\node_modules",
           "children": []
         },
         {
@@ -527,19 +421,11 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Team-Profile-Generator",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Team-Profile-Generator\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Team-Profile-Generator\\dist",
           "children": []
         },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Team-Profile-Generator\\lib",
-          "children": []
-        },
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Team-Profile-Generator\\node_modules",
           "children": []
         },
         {
@@ -555,10 +441,6 @@
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\Tech-Blog",
       "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Tech-Blog\\.git",
-          "children": []
-        },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Tech-Blog\\config",
           "children": []
@@ -582,10 +464,6 @@
         },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Tech-Blog\\models",
-          "children": []
-        },
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Tech-Blog\\node_modules",
           "children": []
         },
         {
@@ -620,22 +498,10 @@
         }
       ]
     },
-    {
-      "dirname": "C:\\Users\\colin\\bootcamp\\TESTING",
-      "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\TESTING\\node_modules",
-          "children": []
-        }
-      ]
-    },
+    { "dirname": "C:\\Users\\colin\\bootcamp\\TESTING", "children": [] },
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\To-Do-Tracker",
       "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\To-Do-Tracker\\.git",
-          "children": []
-        },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\To-Do-Tracker\\assets",
           "children": [
@@ -658,10 +524,6 @@
           "dirname": "C:\\Users\\colin\\bootcamp\\tutor-testing\\testing",
           "children": [
             {
-              "dirname": "C:\\Users\\colin\\bootcamp\\tutor-testing\\testing\\.git",
-              "children": []
-            },
-            {
               "dirname": "C:\\Users\\colin\\bootcamp\\tutor-testing\\testing\\assets",
               "children": []
             }
@@ -672,10 +534,6 @@
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\Weather-Dashboard",
       "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Weather-Dashboard\\.git",
-          "children": []
-        },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Weather-Dashboard\\assets",
           "children": [
@@ -702,10 +560,6 @@
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\week-11-miniproject",
       "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\week-11-miniproject\\.git",
-          "children": []
-        },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\week-11-miniproject\\db",
           "children": []
@@ -749,10 +603,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Week1Refactoring",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Week1Refactoring\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Week1Refactoring\\Develop",
           "children": [
             {
@@ -776,10 +626,6 @@
       "dirname": "C:\\Users\\colin\\bootcamp\\Week2Challenge",
       "children": [
         {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Week2Challenge\\.git",
-          "children": []
-        },
-        {
           "dirname": "C:\\Users\\colin\\bootcamp\\Week2Challenge\\assets",
           "children": [
             {
@@ -797,10 +643,6 @@
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\WikiMusix",
       "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\WikiMusix\\.git",
-          "children": []
-        },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\WikiMusix\\assets",
           "children": [
@@ -823,10 +665,6 @@
     {
       "dirname": "C:\\Users\\colin\\bootcamp\\Work-Day-Scheduler",
       "children": [
-        {
-          "dirname": "C:\\Users\\colin\\bootcamp\\Work-Day-Scheduler\\.git",
-          "children": []
-        },
         {
           "dirname": "C:\\Users\\colin\\bootcamp\\Work-Day-Scheduler\\assets",
           "children": [

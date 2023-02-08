@@ -26,14 +26,15 @@ const loadSettings = async () => {
         })
         .join("");
       return `${word}`;
-    }).join("|")
+    })
+    .join("|");
   settings.excluded_directories_regex = new RegExp(`(${fileNames})`, "gi");
   return settings;
 };
 
 // store user directories in userfs.json based upon user's default path (settings.default_directory)
 const init = async () => {
-  const settings = await loadSettings()
+  const settings = await loadSettings();
   const parent = await createParentObj(settings.default_directory);
   // with created parent, recursively create all children
   for (const childObj of parent.children) {
@@ -62,15 +63,20 @@ const createParentObj = async (dir) => {
 };
 
 // accepts parameters: STRING.
-// gets raw Dirent objects, filters out Dirent objects that are not a directory ([Symbol(type)]: 2), maps the Dirent objects and sets up the child object in the same format.  Lastly, runs the array through dirFilter() to remove specified unwanted directories (such as node_modules)
+// gets raw Dirent objects, filters out Dirent objects that are not a directory ([Symbol(type)]: 2), filters out excluded directory names, then maps the Dirent objects and sets up the child object in the same format. 
 // RETURNS an array
 const dirObjSetup = async (dir) => {
-  const arr = (await readdir(dir, { withFileTypes: true }))
-    .filter((dirent) => dirent.isDirectory())
-    .map(
-      (dirent) => (dirent = { dirname: `${dir}\\${dirent.name}`, children: [] })
-    );
-  return arr;
+  const settings = await loadSettings();
+  const arr = (await readdir(dir, { withFileTypes: true })).filter((dirent) =>
+    dirent.isDirectory()
+  );
+  const filtered = arr.filter(
+    (dirent) => !dirent.name.match(settings.excluded_directories_regex)
+  );
+  const mapped = filtered.map(
+    (dirent) => (dirent = { dirname: `${dir}\\${dirent.name}`, children: [] })
+  );
+  return mapped;
 };
 
 // accepts parameters: STRING.
@@ -78,7 +84,7 @@ const dirObjSetup = async (dir) => {
 // for each object in dirObj.children array, recursively create more children until there are no remaining dirname strings
 // RETURNS an object
 const getChildDirs = async (dir) => {
-  const settings = await loadSettings()
+  const settings = await loadSettings();
   if (dir) {
     const dirObj = await dirObjSetup(dir);
     for (const obj of dirObj) {
@@ -91,9 +97,6 @@ const getChildDirs = async (dir) => {
 };
 
 init()
-
-
-
 
 /**** STEP 2: incorporate arrays into inquirer-autocomplete with fuzzy ****/
 
