@@ -6,37 +6,37 @@ const { readdir } = require("fs/promises");
 const fs = require("fs");
 
 // load in user settings as a global variable
-const settings = JSON.parse(
-  fs.readFileSync("settings.json", { encoding: "utf8" })
-);
-// join excluded_directories array by | and wrap it in /()/ to create regex for match() to filter them
+// TODO: consider using MongoDB to store this as practice
+const loadSettings = async () => {
+  const settings = await JSON.parse(
+    fs.readFileSync("settings.json", { encoding: "utf8" })
+  );
+  // format raw filenames into a string that can be used to create a RegExp obj
+  const fileNames = settings.excluded_directories
+    .map((word) => {
+      const symbolSearch = word.split("");
+      word = symbolSearch
+        .map((letter) => {
+          if (letter.match(/[.\\*+]/)) {
+            letter = `\\${letter}`;
+          }
+          return letter;
+        })
+        .join("");
+      return `(${word})`;
+    })
+    .join("*")
+    .concat("", "*");
 
-// FIXME: str does not apply changes to wordArr
-const excludedDirectories = () => {
-  const wordArr = settings.excluded_directories;
-  for (let str of wordArr) {
-    // if (str.match(/([.*\\])/)) {
-    const match = str.match(/([.*\\])/);
-    if (!match) {
-      break;
-    }
-    const split = match.input.split("");
-    split.splice(match.index, 0, "\\");
-    str = split.join("");
-    console.log(str);
-
-    // console.log(match.index, match.input)
-  }
-  // }
-  console.log(wordArr);
-  // const excludedRegex = `/(${settings.excluded_directories.join('|')})/`
-  // console.log(excludedRegex)
-  //        /(node_modules|\.git)/
+  settings.excluded_directories_regex = new RegExp(fileNames, "gi");
+  return settings;
 };
-excludedDirectories();
+
 
 // store user directories in userfs.json based upon user's default path (settings.default_directory)
 const init = async () => {
+  const settings = await loadSettings(); 
+  console.log(settings)
   const parent = await createParentObj(settings.default_directory);
   // with created parent, recursively create all children
   for (const childObj of parent.children) {
@@ -111,17 +111,9 @@ const getChildDirs = async (dir) => {
   }
 };
 
-// init();
+init();
 
-// fs.readFile("settings.json", { encoding: "utf8" }, (err, data) => {
-//   if (err) throw err;
-//   fetchSettings(data)
-// });
 
-// // fetches settings.json using node-fetch
-// const fetchSettings = (data) => {
-//   console.log(typeof data)
-// };
 
 /**** STEP 2: incorporate arrays into inquirer-autocomplete with fuzzy ****/
 
