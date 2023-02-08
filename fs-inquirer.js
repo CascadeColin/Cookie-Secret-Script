@@ -5,6 +5,8 @@ const path = require("path");
 const { readdir } = require("fs/promises");
 const fs = require("fs");
 
+inquirer.registerPrompt("autocomplete", inquirerPrompt);
+
 // load in user settings as a global variable
 // TODO: consider using MongoDB to store this as practice
 const loadSettings = async () => {
@@ -23,20 +25,15 @@ const loadSettings = async () => {
           return letter;
         })
         .join("");
-      return `(${word})`;
-    })
-    .join("*")
-    .concat("", "*");
-
-  settings.excluded_directories_regex = new RegExp(fileNames, "gi");
+      return `${word}`;
+    }).join("|")
+  settings.excluded_directories_regex = new RegExp(`(${fileNames})`, "gi");
   return settings;
 };
 
-
 // store user directories in userfs.json based upon user's default path (settings.default_directory)
 const init = async () => {
-  const settings = await loadSettings(); 
-  console.log(settings)
+  const settings = await loadSettings()
   const parent = await createParentObj(settings.default_directory);
   // with created parent, recursively create all children
   for (const childObj of parent.children) {
@@ -45,10 +42,10 @@ const init = async () => {
   await fs.writeFile("userfs.json", JSON.stringify(parent), (err) => {
     if (err) throw err;
   });
+  return settings;
 };
 
 // creates the 'autocomplete' prompt to use the saved file directories in userfs.json
-inquirer.registerPrompt("autocomplete", inquirerPrompt);
 
 /******************
 dirObj needs to be formatted as below:
@@ -73,25 +70,6 @@ const dirObjSetup = async (dir) => {
     .map(
       (dirent) => (dirent = { dirname: `${dir}\\${dirent.name}`, children: [] })
     );
-  dirFilter(dir, arr);
-  return arr;
-};
-
-/* directory filtering */
-// if dirObj is not empty, loop through each object.  Split dirObj.dirname by \\ (returns array).  If the last index in Split array === banned keyword, splice the array at Split.length-1 to get rid of it.  Then, join the array back into a string and assign it to dirObj.dirname
-const dirFilter = (str, arr) => {
-  if (arr.length !== 0) {
-    for (const obj of arr) {
-      const splitStr = obj.dirname.split("\\");
-      if (splitStr[splitStr.length - 1].match(/(node_modules|\.git)/)) {
-        splitStr.splice(splitStr.length - 1);
-      }
-      obj.dirname = splitStr.join("\\");
-      if (obj.dirname === str) {
-        arr.splice(arr.indexOf(obj), 1);
-      }
-    }
-  }
   return arr;
 };
 
@@ -100,10 +78,11 @@ const dirFilter = (str, arr) => {
 // for each object in dirObj.children array, recursively create more children until there are no remaining dirname strings
 // RETURNS an object
 const getChildDirs = async (dir) => {
+  const settings = await loadSettings()
   if (dir) {
     const dirObj = await dirObjSetup(dir);
     for (const obj of dirObj) {
-      if (obj.dirname) {
+      if (!obj.dirname.match(settings.excluded_directories_regex)) {
         obj.children = await getChildDirs(obj.dirname);
       }
     }
@@ -111,7 +90,8 @@ const getChildDirs = async (dir) => {
   }
 };
 
-init();
+init()
+
 
 
 

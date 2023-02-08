@@ -1,4 +1,4 @@
 {
   "default_directory": "C:\\Users\\colin\\bootcamp",
-  "excluded_directories": ["node_modules", ".git", "test\\", "t.est", "tes*t"]
+  "excluded_directories": ["node_modules", ".git", "gitlab"]
 }
